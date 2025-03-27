@@ -1,6 +1,8 @@
 Book Shop - Physical & Online Bookstore Platform
 Book Shop is a full-featured online bookstore designed to handle both physical and digital books, built using HTML, CSS, JavaScript for the frontend, and C# with SQL for the backend. The system provides a seamless experience for book lovers who wish to buy, sell, and manage books, interact with other users, and enrich their reading journey.
 
+You are welcome to check my website: https://proj.ruppin.ac.il//cgroup88/test2/tar6/EXC6Clint/HTML/index.html
+
 ✨ Key Features:
 Physical Book Trading
 Physical books are unique and can be owned by one person at a time. If a user wants to purchase a physical book, they can send a request to the current owner. Upon acceptance, the book is automatically transferred to the buyer's My Books library.
