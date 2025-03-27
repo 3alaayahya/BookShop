@@ -1,0 +1,121 @@
+﻿/* Add some basic styling for the modals and quiz display */
+.modal, .quiz-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+    .modal.active, .quiz-container.active {
+        display: block;
+    }
+
+.quiz {
+    width: 30%;
+    margin: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgb(128, 128, 128);
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #f9f9f9;
+    height: auto;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+    .button:hover {
+        background-color: #0056b3;
+    }
+
+.start-quiz-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.centered {
+    display: block;
+    text-align: center;
+}
+
+.correct-answer {
+    background-color: #d4edda; /* Green background for correct answers */
+    font-weight: bold;
+}
+
+.user-answer {
+    background-color: #f8d7da; /* Red background for user-selected answers */
+    font-weight: bold;
+}
+
+.modal h2, .quiz-container h2 {
+    margin-top: 0;
+}
+
+.modal button, .quiz-container button {
+    margin: 10px 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+.correct-answer {
+    background-color: #d4edda; /* Green background for correct answers */
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.user-answer {
+    background-color: #f8d7da; /* Red background for user-selected answers */
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.back-home-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}

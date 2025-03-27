@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Admin page</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+    <link href="../CSS/index_myBookscss.css" rel="stylesheet" />
+    <link href="../CSS/admincss.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="navbar">
+        <a href="index.html">Home</a>
+        <a id="myBooksBtn">My Books</a>
+        <a href="authorsPage.html">Authors</a>
+        <a id="bookRequestsPage">Book Requests</a>
+        <a id="FriendsChatPage">Friends & Chat</a>
+        <a id="ReviewsPage">Book Reviews</a>
+        <a id="QuizPage">Quizzes</a>
+        <a href="#" id="logoutBtn">Logout</a>
+        <p id="hiUser"></p>
+    </div>
+
+    <!-- Modal for displaying user books -->
+    <div id="userBooksModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="userBooksContent">
+                <!-- User books will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for displaying users that have books by a specefic author or book-->
+    <div id="showUsersModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="show-users-list">
+                <!-- User books will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="buttons-container">
+        <button id="quickEditBtn">Edit in dataTable</button>
+        <button id="insertBookBtn">Insert New Book</button>
+        <div>
+            <input list="books" id="bookDatalist" placeholder="Select a Book to edit">
+            <button id="editBookBtn">Edit Book</button>
+            <datalist id="books"></datalist>
+        </div>
+    </div>
+
+    <br />
+
+    <div id="buttons-container2">
+        <button id="showAllUsersBtn">Show All Users</button>
+        <button id="showAllAuthorsBtn">Show All Authors</button>
+        <button id="showAllBooksBtn">Show All Books</button>
+    </div>
+
+    <br />
+
+    <div id="editbookFromList" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="editBookFromListForm">
+                <input type="hidden" id="editBookId">
+                <label>Name:</label>
+                <input type="text" id="editBookTitle" required>
+                <label>Is Active: <input type="checkbox" id="editBookIsActive"></label>
+                <button type="button" id="saveBtnFromList">Save Book</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="dataList">
+        <form id="pForm">
+            <table id="booksTable" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Author Name</th>
+                        <th>Publish Date</th>
+                        <th>Page Count</th>
+                        <th>Categories</th>
+                        <th>Language</th>
+                        <th>Image</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Rating</th>
+                        <th>IsDigital</th>
+                        <th>IsActive</th>
+                        <th>IsOwned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table body rows will be populated dynamically -->
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <!-- The Modal -->
+    <div id="editBookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="editBookForm">
+                <input type="hidden" id="courseId">
+                <input type="hidden" id="formMode" value="edit"> <!-- New hidden input to distinguish form mode -->
+                <label>Title:</label>
+                <input type="text" id="bookTitle" required>
+                <label>Book ID:</label>
+                <input type="text" id="bookID" required> <!-- Set as required for new course -->
+                <label>Author Name:</label>
+                <input type="text" id="bookAuthorName" required> <!-- Set as required for new course -->
+                <label>Publish Date:</label>
+                <input type="date" id="bookPublishDate" required>
+                <label>Page Count:</label>
+                <input type="number" id="bookPageCount" required>
+                <label>Categories:</label>
+                <input type="text" id="bookCategories" required>
+                <label>Language:</label>
+                <input type="text" id="bookLanguage" required>
+                <label>PDF link:</label>
+                <input type="text" id="bookWebReaderLink" required>
+                <label>Image Reference:</label>
+                <input type="text" id="bookImageReference">
+                <label for="bookImageUpload">Or Upload Image:</label>
+                <input type="file" id="bookImageUpload">
+                <input type="hidden" id="bookImageReference" name="bookImageReference">
+                <label>Description:</label>
+                <textarea id="bookDescription" required></textarea>
+                <label>Price:</label>
+                <input type="text" id="bookPrice" required>
+                <label>Rating:</label>
+                <input type="text" id="bookRating" required>
+                <label>Is Digital:</label>
+                <input type="checkbox" id="bookIsDigital">
+                <label>Is Active:</label>
+                <input type="checkbox" id="bookIsActive">
+                <label>Is Owned:</label>
+                <input type="checkbox" id="bookIsOwned">
+                <button type="submit">Save Book</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="book-list"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!--<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>-->
+    <!--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+
+    <script src="../JS/Adminjs.js"></script>
+</body>
+</html>

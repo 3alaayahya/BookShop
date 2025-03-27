@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Book Reviews</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../CSS/Reviews.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a href="index.html"><button>Back Home</button></a>
+        </div>
+        <div class="top-bar-middle">
+            <button onclick="showLikedReviews()">Show Reviews I Liked</button>
+            <button onclick="showMyReviews()">Show My Reviews</button>
+            <input type="text" id="search-input" placeholder="Search by book or user name">
+            <button onclick="searchReviews()">Search</button>
+            <button onclick="resetReviews()">Reset</button>
+        </div>
+    </div>
+
+    <div id="reviews-container">
+        <!-- Reviews will be loaded here -->
+    </div>
+
+    <script src="../JS/Reviews.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Authors</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<script src="ajaxCalls.js"></script>-->
+    <script src="../ajaxCalls2.js"></script>
+    <link href="../CSS/AuthorsCSS.css" rel="stylesheet" />
+    <!--<script src="JS/index.js"></script>-->
+</head>
+<body>
+    <div id="navbar">
+        <a href="index.html">Home</a>
+        <a id="myBooksBtn">My Books</a>
+        <a href="#" id="loginBtn">Login</a>
+        <a id="bookRequestsPage">Book Requests</a>
+        <a id="FriendsChatPage">Friends & Chat</a>
+        <a id="ReviewsPage">Book Reviews</a>
+        <a id="QuizPage">Quizzes</a>
+        <a href="#" id="logoutBtn">Logout</a>
+        <a id="adminPage">Admin</a>
+        <p id="hiUser"></p>
+        <img src="" id="userImage">
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search authors By Name/Description">
+        <button id="searchBtn">Search</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+    <div id="authors-list">
+    </div>
+    <div class="pagination-controls">
+        <button id="prevPageBtn">Previous</button>
+        <span id="pageInfo">Page 1 of X</span>
+        <button id="nextPageBtn">Next</button>
+    </div>
+
+    <!-- Modal to show instructor's courses -->
+    <div id="authorBooksModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="authorBooksForm">
+                <!-- Courses will be dynamically populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../JS/Authorjs.js"></script>
+</body>
+</html>

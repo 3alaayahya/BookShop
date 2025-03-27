@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Books</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="../CSS/index_myBookscss.css" rel="stylesheet" />
+    <script src="../ajaxCalls.js"></script>
+    <!--<script src="JS/index.js"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div id="navbar">
+        <a href="index.html">Home</a>
+        <a href="authorsPage.html">Authors</a>
+        <a id="bookRequestsPage">Book Requests</a>
+        <a id="FriendsChatPage">Friends & Chat</a>
+        <a id="ReviewsPage">Book Reviews</a>
+        <a id="QuizPage">Quizzes</a>
+        <a href="#" id="adminPage">Admin</a>
+        <a href="#" id="logoutBtn">Logout</a>
+        <p id="hiUser"></p>
+        <img src="" id="userImage">
+    </div>
+
+    <!-- Modal for profile edit-->
+    <div id="profileEditModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="profileEditForm">
+                <label for="editName">Name:</label>
+                <input type="text" id="editName" name="name" required>
+                <br>
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" name="email" required>
+                <br>
+                <label for="editPassword">New Password:</label>
+                <input type="password" id="editPassword" name="password">
+                <br>
+                <label for="currentPassword">Current Password (required for email or password change):</label>
+                <input type="password" id="currentPassword" name="currentPassword">
+                <br>
+                <label for="editImage">Image URL:</label>
+                <input type="text" id="editImage" name="image">
+                <label for="ProfileImageUpload">Or Upload Image:</label>
+                <input type="file" id="profileImageUpload">
+                <br>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for adding reviews-->
+    <div id="reviewModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <label for="reviewCaption">Caption:</label>
+            <textarea id="reviewCaption" rows="4" cols="50" maxlength="1000"></textarea><br />
+            <label for="reviewRating">Rating:</label>
+            <select id="reviewRating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select><br />
+            <button id="PostReview">Post Review</button>
+        </div>
+    </div>
+
+
+    <!-- Modal form for instructor courses-->
+    <div id="authorBooksModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="authorBooksForm">
+                <!-- Courses will be dynamically added here -->
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal form for course details-->
+    <div id="bookDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="bookDetailsContent">
+                <!-- Course details will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="searchbar">
+        <div class="search-container">
+            <select id="search-criteria">
+                <option value="any">Any</option>
+                <option value="title">Search by Title</option>
+                <option value="author">Search by Author</option>
+                <option value="description">Search by Words from Book</option>
+            </select>
+            <input id="search-input" type="text" placeholder="Search books...">
+            <button id="search-button">Search</button>
+            <button id="mic-button"><i class="fa fa-microphone"></i></button>
+            <button id="reset-button">Reset</button>
+        </div>
+
+        <div class="search-section" id="delete-section">
+            <label for="delete-id">Delete by ID:</label>
+            <input type="number" id="delete-id" name="delete-id">
+            <button id="delete-by-id">Delete Book by ID</button>
+        </div>
+    </div>
+
+    <div id="my-books-list">
+        <div id="readed-section">
+            <h2>Books I have read</h2>
+            <div id="readed-empty"></div>
+            <div id="readed-books"></div>
+            <h2>---------------------------------------------</h2>
+        </div>
+
+        <div id="want-to-read-section">
+            <h2>Books I Want To Read</h2>
+            <div id="wantToRead-empty"></div>
+            <div id="want-to-read-books"></div>
+            <h2>---------------------------------------------</h2>
+        </div>
+
+        <div id="bought-section">
+            <h2>Physical Books I have bought</h2>
+            <div id="bought-empty"></div>
+            <div id="bought-books"></div>
+            <h2>---------------------------------------------</h2>
+        </div>
+    </div>
+    
+    <script src="../JS/myBooksjs.js"></script>
+</body>
+</html>

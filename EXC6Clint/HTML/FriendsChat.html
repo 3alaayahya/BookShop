@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends & Chat</title>
+    <link href="../CSS/FriendsChat.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html"><button>Back Home</button></a>
+            <button id="btnShowAllFriends">Show All Friends</button>
+            <button id="btnFriendRequestsSent">Friend Requests Sent</button>
+            <button id="btnFriendRequestsReceived">Friend Requests Received</button>
+        </div>
+
+        <h2>Add Friends so you can CHAT and see Share each others Books!</h2>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search user names...">
+            <button id="searchButton">Search</button>
+        </div>
+
+        <div id="requestsContainer"></div>
+        <div id="friendsContainer"></div>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+
+        <!-- Modal for CHAT -->
+        <div id="chatModal" class="modalChat">
+            <div class="Chatmodal-content">
+                <div class="chat-header">
+                    <h2 id="chatHeaderTitle"></h2>
+                    <button class="close-btn" onclick="closeModal('chatModal')">Close</button>
+                </div>
+                <div class="chat-body">
+                    <!-- Messages will be dynamically injected here -->
+                </div>
+                <div class="chat-footer">
+                    <input type="text" id="messageInput" placeholder="Type a message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../JS/FriendsChat.js"></script>
+</body>
+</html>

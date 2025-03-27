@@ -1,0 +1,236 @@
+﻿<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book API Integration</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Book API Integration</h1>
+    <script>
+        const apiKey = 'AIzaSyDzie4Pgz1gcVPmmaU--3C3qcZauzAfUdA';
+        const addBookUrl = 'https://localhost:7127/api/Book/AddBook';
+
+        // Function to fetch books from Google Books API with a random start index
+        async function fetchBooks(query, maxResults) {
+            try {
+                const totalItems = 500; // Assume there are at least 1000 books available
+                const randomStartIndex = Math.floor(Math.random() * (totalItems - maxResults));
+                const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=${maxResults}&startIndex=${randomStartIndex}&key=${apiKey}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data.items || [];
+            } catch (error) {
+                console.error('Fetch error:', error);
+                return [];
+            }
+        }
+
+        // Function to map Google Books API data to your book class
+        function mapToBook(bookData, isDigital) {
+            const minPrice = 50;
+            const maxPrice = 400;
+            const price = Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
+            const formattedPrice = `${price}.90`;
+
+            let publishDate = bookData.volumeInfo.publishedDate || '';
+            if (/^\d{4}$/.test(publishDate)) {
+                publishDate = `01-01-${publishDate}`;
+            }
+
+            // Get the average rating, or if null, generate a random rating between 3 and 5
+            let averageRating = bookData.volumeInfo.averageRating;
+            if (averageRating == null) {
+                averageRating = (Math.random() * (5 - 3) + 3).toFixed(1);
+            }
+
+            return {
+                name: bookData.volumeInfo.title,
+                authorName: bookData.volumeInfo.authors?.join(', ') || '',
+                publishDate: publishDate,
+                pageCount: bookData.volumeInfo.pageCount || 0,
+                categories: bookData.volumeInfo.categories?.join(', ') || '',
+                language: bookData.volumeInfo.language || '',
+                image: bookData.volumeInfo.imageLinks?.thumbnail || '',
+                description: bookData.volumeInfo.subtitle || bookData.volumeInfo.description,
+                webReaderLink: bookData.accessInfo?.webReaderLink || '',
+                price: parseFloat(formattedPrice),
+                rating: parseFloat(averageRating),
+                isOwned: false,
+                isDigital: bookData.saleInfo.isEbook,
+                isActive: true
+            };
+        }
+
+
+        // Function to post book data to the API
+        function postBook(book) {
+            return $.ajax({
+                url: addBookUrl,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(book)
+            }).fail((jqXHR, textStatus, errorThrown) => {
+                console.error('AJAX error:', textStatus, errorThrown);
+            });
+        }
+
+        // Function to process books
+        async function processBooks() {
+            try {
+                console.log("Fetching digital books...");
+                const digitalBooks = await fetchBooks('flowers&filter=free-ebooks', 0);
+                console.log(`Total eBooks fetched: ${digitalBooks.length}`);
+
+                console.log("Fetching physical books...");
+                const physicalBooks = await fetchBooks('book', 40);
+                console.log(`Total physical books fetched: ${physicalBooks.length}`);
+
+                // Create a Set of book names to avoid duplicate books
+                const nameSet = new Set();
+
+                // Function to process a batch of books
+                async function processBookBatch(bookData, isDigital) {
+                    for (const bookDataItem of bookData) {
+                        const book = mapToBook(bookDataItem, isDigital);
+
+                        // Skip books with missing data
+                        if (isDigital && ( !book.name || !book.publishDate || !book.pageCount || !book.image || !book.authorName || !book.categories)) {
+                            console.log(`Skipping Ebook due to missing data: ${book.name}`);
+                            continue;
+                        }
+                        if (!isDigital && (!book.name || !book.image)) {
+                            console.log(`Skipping physical book due to missing data: ${book.name}`);
+                            continue;
+                        }
+
+                        // Skip books already added
+                        if (nameSet.has(book.name)) {
+                            console.log(`Skipping duplicate book: ${book.name}`);
+                            continue;
+                        }
+
+                        nameSet.add(book.name);
+
+                        try {
+                            await postBook(book);
+                            console.log(`Book added: ${book.name}`);
+                        } catch (error) {
+                            console.error(`Failed to add book: ${book.name}`, error);
+                        }
+                    }
+                }
+
+                // Process both digital and physical books
+                await processBookBatch(physicalBooks, false);
+                await processBookBatch(digitalBooks, true);
+
+            } catch (error) {
+                console.error('Error processing books:', error);
+            }
+        }
+
+        // Start processing books
+        processBooks();
+    </script>
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Author Images</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+        // Function to fetch all authors
+        function fetchAuthors() {
+            return $.ajax({
+                url: 'https://localhost:7127/api/Author/GetAllAuthors',
+                method: 'GET',
+                dataType: 'json'
+            });
+        }
+
+        // Function to search for the author on Wikipedia and retrieve the image
+        function getImageForAuthor(name) {
+            const query = encodeURIComponent(name);
+            const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${query}&utf8=1&origin=*`;
+
+            return $.ajax({
+                url: searchUrl,
+                method: 'GET',
+                dataType: 'json'
+            }).then(response => {
+                const searchResults = response.query.search;
+                if (searchResults.length > 0) {
+                    // Get the first page ID from search results
+                    const pageId = searchResults[0].pageid;
+                    const pageUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageimages&pageids=${pageId}&pithumbsize=500&origin=*`;
+
+                    return $.ajax({
+                        url: pageUrl,
+                        method: 'GET',
+                        dataType: 'json'
+                    }).then(response => {
+                        const pages = response.query.pages;
+                        const page = pages[pageId];
+                        if (page.thumbnail) {
+                            return page.thumbnail.source;
+                        }
+                        return null;
+                    });
+                }
+                return null;
+            });
+        }
+
+        // Function to update the author with a new image
+        function updateAuthor(authorId, name, description, image) {
+            return $.ajax({
+                url: 'https://localhost:7127/api/Author/UpdateAuthor',
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    AuthorId: authorId,
+                    Name: name,
+                    Description: description,
+                    Image: image
+                })
+            });
+        }
+
+        // Main function to handle the process
+        function processAuthors() {
+            fetchAuthors().then(authors => {
+                const updatePromises = authors.map(author => {
+                    return getImageForAuthor(author.Name).then(image => {
+                        if (image) {
+                            return updateAuthor(author.AuthorId, author.Name, author.Description, image);
+                        }
+                    });
+                });
+
+                return Promise.all(updatePromises);
+            }).then(() => {
+                console.log('All authors updated successfully.');
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Start the process
+        $(document).ready(() => {
+            processAuthors();
+        });
+    </script>
+</body>
+</html>

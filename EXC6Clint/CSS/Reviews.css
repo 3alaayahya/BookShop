@@ -1,0 +1,226 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding-top: 80px; /* Adjust padding to make space for the fixed top bar */
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
+}
+
+.top-bar-left {
+    display: flex;
+    align-items: center;
+}
+
+.top-bar-middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+}
+
+.top-bar button, .top-bar input {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.top-bar input {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+
+.review-container {
+    width: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.review-container {
+    width: 600px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-image {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.review-details {
+    margin-bottom: 10px;
+}
+
+.book-image {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.review-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.like-btn, .comment-btn {
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+    .like-btn.liked, .comment-btn.liked {
+        background-color: #e74c3c;
+    }
+
+.comment-section {
+    margin-top: 10px;
+}
+
+.comment-input {
+    width: calc(100% - 10px);
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.comment-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .comment-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+.comment-list-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+}
+
+.comment-user-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Add some margin to the bottom */
+}
+
+.user-name {
+    margin-right: 10px; /* Add space between name and date */
+}
+
+.review-date {
+    font-size: 0.9em; /* Optional: adjust the font size for the date */
+    color: gray; /* Optional: change the color for better visibility */
+}
+
+
+.comment-user-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.comment-date {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.comment-text {
+    margin-top: 5px;
+    margin-left: 40px; /* Align text with user name */
+}
+
+.delete-btn {
+    margin-left: 10px;
+    color: red;
+    cursor: pointer;
+}
+
+.delete-btn {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 12px;
+}
+
+.delete-review-btn {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #e74c3c;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}

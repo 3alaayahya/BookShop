@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../ajaxCalls.js"></script>
+    <link href="../CSS/index_myBookscss.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div id="navbar">
+        <a id="myBooksBtn">My Books</a>
+        <a href="authorsPage.html">Authors</a>
+        <a href="#" id="loginBtn">Login</a>
+        <a id="bookRequestsPage">Book Requests</a>
+        <a id="FriendsChatPage">Friends & Chat</a>
+        <a id="ReviewsPage">Book Reviews</a>
+        <a id="QuizPage">Quizzes</a>
+        <a id="adminPage">Admin</a>
+        <a href="#" id="logoutBtn">Logout</a>
+        <p id="hiUser"></p>
+        <img src="" id="userImage">
+        <a href="FuncsPage.html">Functionalities</a>
+    </div>
+
+    <div id="top-books">
+        <div id="top-book-list"></div>
+    </div>
+
+    <!-- Modal form for instructor courses-->
+    <div id="authorBooksModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="authorBooksForm">
+                <!-- Courses will be dynamically added here -->
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for profile edit-->
+    <div id="profileEditModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="profileEditForm">
+                <label for="editName">Name:</label>
+                <input type="text" id="editName" name="name" required>
+                <br>
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" name="email" required>
+                <br>
+                <label for="editPassword">New Password:</label>
+                <input type="password" id="editPassword" name="password">
+                <br>
+                <label for="currentPassword">Current Password (required for email or password change):</label>
+                <input type="password" id="currentPassword" name="currentPassword">
+                <br>
+                <label for="editImage">Image URL:</label>
+                <input type="text" id="editImage" name="image">
+                <label for="ProfileImageUpload">Or Upload Image:</label>
+                <input type="file" id="profileImageUpload">
+                <br>
+                <button type="submit">Update Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal form for course details-->
+    <div id="bookDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="bookDetailsContent">
+                <!-- Course details will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <select id="search-criteria">
+            <option value="any">Any</option>
+            <option value="title">Search by Title</option>
+            <option value="author">Search by Author</option>
+            <option value="description">Search by Words from Book</option>
+        </select>
+        <input id="search-input" type="text" placeholder="Search courses...">
+        <button id="search-button">Search</button>
+        <button id="mic-button"><i class="fa fa-microphone"></i></button>
+        <button id="reset-button">Reset</button>
+        <div class="dropdown">
+            <button id="filter-button">Filters</button>
+            <div class="dropdown-content filter-buttons">
+                <button id="sort-price">Sort by Price</button>
+                <div id="price-options" class="dropdown-content">
+                    <button id="high-price">High to Low</button>
+                    <button id="low-price">Low to High</button>
+                </div>
+                <button id="sort-page-count">Sort by Page Count</button>
+                <div id="page-options" class="dropdown-content">
+                    <button id="high-page">High to Low</button>
+                    <button id="low-page">Low to High</button>
+                </div>
+                <button id="sort-publish-date">Sort by Publish Date</button>
+                <div id="publish-options" class="dropdown-content">
+                    <button id="high-publish">High to Low</button>
+                    <button id="low-publish">Low to High</button>
+                </div>
+                <button id="show-online-books">Show Online Books First</button>
+                <button id="show-physical-books">Show Physical Books First</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pagination-controls">
+        <span id="current-page">Page 1 of 1</span>
+    </div>
+
+    <div id="book-list">
+        <h1 id="moreBooks">More Books:</h1>
+    </div>
+
+    <div id="pagination-controls">
+        <button id="prev-page" disabled>Previous</button>
+        <span id="current-page">Page 1 of 1</span>
+        <button id="next-page">Next</button>
+    </div>
+
+
+    <div id="loginModal" class="modal">
+        <div id="loginModalContent">
+            <span class="close">&times;</span>
+            <div id="loginFormContainer">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="loginEmail" required>
+                    <br>
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="loginPassword" required>
+                    <br>
+                    <button type="submit">Login</button>
+                    <br>
+                    <span>You dont have an account? </span>
+                    <span class="toggle-link" id="showRegisterForm"> Register</span>
+                </form>
+            </div>
+            <div id="registerFormContainer">
+                <form id="registerForm">
+                    <h2>Register</h2>
+                    <label for="registerName">Name:</label>
+                    <input type="text" id="registerName" name="registerName" required>
+                    <br>
+                    <label for="registerId">Id:</label>
+                    <input type="text" id="registerId" name="registerId" required>
+                    <br>
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" name="registerEmail" required>
+                    <br>
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" name="registerPassword" required>
+                    <br>
+                    <button type="submit">Register</button>
+                    <br>
+                    <span>You have an account? </span>
+                    <span class="toggle-link" id="showLoginForm"> Back to Login</span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/index.js"></script>
+
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../ajaxCalls.js"></script>
+    <link href="../CSS/index_myBookscss.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div id="navbar">
+        <a id="myBooksBtn">My Books</a>
+        <a href="AuthorsPage.html">Authors</a>
+        <a href="#" id="loginBtn">Login</a>
+        <a id="bookRequestsPage">Book Requests</a>
+        <a id="FriendsChatPage">Friends & Chat</a>
+        <a id="ReviewsPage">Book Reviews</a>
+        <a id="QuizPage">Quizzes</a>
+        <a id="adminPage">Admin</a>
+        <a href="#" id="logoutBtn">Logout</a>
+        <p id="hiUser"></p>
+        <img src="" id="userImage">
+    </div>
+
+    <div id="top-books">
+        <div id="top-book-list"></div>
+    </div>-->
+<!-- Modal form for instructor courses-->
+<!--<div id="instructorCoursesModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="instructorCoursesForm">-->
+<!-- Courses will be dynamically added here -->
+<!--</form>
+    </div>
+</div>-->
+<!-- Modal for profile edit-->
+<!--<div id="profileEditModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="profileEditForm">
+            <label for="editName">Name:</label>
+            <input type="text" id="editName" name="name" required>
+            <br>
+            <label for="editEmail">Email:</label>
+            <input type="email" id="editEmail" name="email" required>
+            <br>
+            <label for="editPassword">New Password:</label>
+            <input type="password" id="editPassword" name="password">
+            <br>
+            <label for="currentPassword">Current Password (required for email or password change):</label>
+            <input type="password" id="currentPassword" name="currentPassword">
+            <br>
+            <label for="editImage">Image URL:</label>
+            <input type="text" id="editImage" name="image">
+            <label for="ProfileImageUpload">Or Upload Image:</label>
+            <input type="file" id="profileImageUpload">
+            <br>
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+</div>-->
+<!-- Modal form for course details-->
+<!--<div id="courseDetailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="courseDetailsContent">-->
+<!-- Course details will be dynamically added here -->
+<!--</div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <select id="search-criteria">
+            <option value="any">Any</option>
+            <option value="title">Search by Title</option>
+            <option value="author">Search by Author</option>
+            <option value="description">Search by Words from Book</option>
+        </select>
+        <input id="search-input" type="text" placeholder="Search courses...">
+        <button id="search-button">Search</button>
+        <button id="mic-button"><i class="fa fa-microphone"></i></button>
+        <button id="reset-button">Reset</button>
+        <div class="dropdown">
+            <button id="filter-button">Filters</button>
+            <div class="dropdown-content filter-buttons">
+                <button id="sort-price">Sort by Price</button>
+                <div id="price-options" class="dropdown-content">
+                    <button id="high-price">High to Low</button>
+                    <button id="low-price">Low to High</button>
+                </div>
+                <button id="sort-page-count">Sort by Page Count</button>
+                <div id="page-options" class="dropdown-content">
+                    <button id="high-page">High to Low</button>
+                    <button id="low-page">Low to High</button>
+                </div>
+                <button id="sort-publish-date">Sort by Publish Date</button>
+                <div id="publish-options" class="dropdown-content">
+                    <button id="high-publish">High to Low</button>
+                    <button id="low-publish">Low to High</button>
+                </div>
+                <button id="show-online-books">Show Online Books Only</button>
+                <button id="show-physical-books">Show Physical Books Only</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pagination-controls">
+        <span id="current-page">Page 1 of 1</span>
+    </div>
+
+    <div id="course-list">
+        <h1 id="moreCourses">More Books:</h1>
+    </div>
+
+    <div id="pagination-controls">
+        <button id="prev-page" disabled>Previous</button>
+        <span id="current-page">Page 1 of 1</span>
+        <button id="next-page">Next</button>
+    </div>
+
+
+    <div id="loginModal" class="modal">
+        <div id="loginModalContent">
+            <span class="close">&times;</span>
+            <div id="loginFormContainer">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="loginEmail" required>
+                    <br>
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="loginPassword" required>
+                    <br>
+                    <button type="submit">Login</button>
+                    <br>
+                    <span>You dont have an account? </span>
+                    <span class="toggle-link" id="showRegisterForm"> Register</span>
+                </form>
+            </div>
+            <div id="registerFormContainer">
+                <form id="registerForm">
+                    <h2>Register</h2>
+                    <label for="registerName">Name:</label>
+                    <input type="text" id="registerName" name="registerName" required>
+                    <br>
+                    <label for="registerId">Id:</label>
+                    <input type="text" id="registerId" name="registerId" required>
+                    <br>
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" name="registerEmail" required>
+                    <br>
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" name="registerPassword" required>
+                    <br>
+                    <button type="submit">Register</button>
+                    <br>
+                    <span>You have an account? </span>
+                    <span class="toggle-link" id="showLoginForm"> Back to Login</span>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/index.js"></script>
+
+</body>
+</html>-->

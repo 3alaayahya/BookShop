@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Quizzes</title>
+    <link href="../CSS/index_myBookscss.css" rel="stylesheet" />
+    <link href="../CSS/Quiz.css" rel="stylesheet" />
+</head>
+<body>
+    <a href="index.html" class="button back-home-btn">Back Home</a>
+    <button id="startNewQuiz" class="start-quiz-btn">Start New Quiz</button>
+    <h2 class="centered">Our Quizzes are made Automatically in Real-Time<br />Once you click on start Quiz a new Quiz will be Generated for you!</h2>
+    <div id="quizList"></div>
+
+    <!-- Quiz Detail Modal -->
+    <div id="quizDetailModal" class="modal">
+        <h2>Quiz Details</h2>
+        <div id="quizDetailsContent"></div>
+        <button id="closeQuizDetail" class="button" onclick="closeQuizDetail()">Close</button>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal quiz-container">
+        <h2>Quiz</h2>
+        <div id="quizQuestions"></div>
+        <button id="submitQuiz" class="button" onclick="submitQuiz()">Submit</button>
+        <button id="closeQuiz" class="button" onclick="closeQuiz()">Close</button>
+    </div>
+
+    <script src="../JS/Quiz.js"></script>
+ 
+</body>
+</html>

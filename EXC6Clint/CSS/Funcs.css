@@ -1,0 +1,65 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    direction: rtl; /* Set text direction to right-to-left */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.cont {
+    max-width: 800px;
+    margin: 50px auto; /* Center the content horizontally */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center text horizontally */
+}
+
+h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-position: inside; /* Place points inside the list items */
+    text-align: right; /* Align text to the right */
+    padding-right: 20px; /* Add padding to the right for spacing */
+}
+
+    ul li {
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 10px;
+        line-height: 1.6;
+        position: relative; /* Enable absolute positioning for custom bullet points */
+    }
+
+        ul li::before {
+            content: "•"; /* Custom bullet point */
+            font-size: 22px;
+            color: #007bff;
+            position: absolute;
+            right: -20px; /* Adjust position for the bullet point */
+            top: 0;
+        }
+
+button {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+div[style*="background-color:black"] {
+    text-align: center; /* Center the Home button */
+    padding: 20px 0;
+}
